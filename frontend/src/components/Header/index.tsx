@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation"
 import UserAvatar from "../UserAvatar"
 import UserMenu from "../UserMenu"
 import { User } from "@/types/User"
+import Link from "next/link"
 
 export default function Header() {
   const [user, setUser] = useState<User | null>(null)
@@ -61,30 +62,40 @@ export default function Header() {
       <div className="max-w-4xl mx-auto flex justify-between items-center">
         <h1 className="text-4xl font-bold">⚡ Energy Market</h1>
 
-        {user && (
-          <div ref={menuRef} className="relative">
-            <div
-              className="flex gap-2 items-center cursor-pointer"
-              onClick={() => setShowMenu(!showMenu)}
-            >
-              <div className="text-sm text-gray-700 text-right">
-                <p>
-                  Bienvenid@, 
-                  <span className="font-medium capitalize"> {user.name} </span>
-                </p>
-                <span className="text-xs text-slate-500">{user.email}</span>
+        {
+          user ? (
+            <div ref={menuRef} className="relative">
+              <div
+                className="flex gap-2 items-center cursor-pointer"
+                onClick={() => setShowMenu(!showMenu)}
+              >
+                <div className="text-sm text-gray-700 text-right">
+                  <p>
+                    Bienvenid@, 
+                    <span className="font-medium capitalize"> {user.name} </span>
+                  </p>
+                  <span className="text-xs text-slate-500">{user.email}</span>
+                </div>
+                <UserAvatar classname="w-11 h-11 border border-slate-400 bg-slate-300" />
               </div>
-              <UserAvatar classname="w-11 h-11 border border-slate-400 bg-slate-300" />
-            </div>
 
-            {showMenu && (
-              <UserMenu 
-                user={user}
-                handleLogout={handleLogout} 
-              />
-            )}
-          </div>
-        )}
+              {showMenu && (
+                <UserMenu 
+                  user={user}
+                  handleLogout={handleLogout} 
+                />
+              )}
+            </div>
+          ) : (
+            <Link href='/login'>
+              <div 
+                className="cursor-pointer border px-3 py-1 rounded-full border-slate-400 bg-slate-300 hover:bg-slate-400 transition"
+              >
+                Iniciar Sesión
+              </div>
+            </Link>
+          )
+        }
       </div>
     </header>
   )

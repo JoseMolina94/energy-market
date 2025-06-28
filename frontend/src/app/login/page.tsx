@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("vendedor@mail.com");
-  const [password, setPassword] = useState("123456");
-  const [error, setError] = useState("");
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError("")
 
     console.log({ email, password })
 
@@ -20,19 +20,19 @@ export default function LoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-      });
+      })
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || "Error al iniciar sesión")
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user)); // para acceder al rol
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("user", JSON.stringify(data.user))
 
-      router.push("/offers");
+      router.push("/offers")
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message)
     }
-  };
+  }
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
@@ -43,6 +43,7 @@ export default function LoginPage() {
           <label className="block font-semibold">Correo electrónico</label>
           <input
             type="email"
+            placeholder="Correo electrónico"
             className="w-full border px-2 py-1 rounded"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -53,6 +54,7 @@ export default function LoginPage() {
           <label className="block font-semibold">Contraseña</label>
           <input
             type="password"
+            placeholder="Contraseña"
             className="w-full border px-2 py-1 rounded"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -67,5 +69,5 @@ export default function LoginPage() {
         </button>
       </form>
     </div>
-  );
+  )
 }
