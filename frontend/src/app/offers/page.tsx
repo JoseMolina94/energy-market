@@ -20,7 +20,7 @@ export default function OffersPage() {
   return (
     <div className="p-4 space-y-4">
       <h1 className="text-3xl font-bold mb-4 border-b">Ofertas Activas</h1>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         {data?.map((offer: any, index: number) => (
           <EnergyOfferCard offer={offer} key={index} />
         ))}

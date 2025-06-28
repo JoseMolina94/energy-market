@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import UserAvatar from "../UserAvatar"
+import UserMenu from "../UserMenu"
 import { User } from "@/types/User"
 
 export default function Header() {
@@ -29,6 +30,13 @@ export default function Header() {
       })
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    setUser(null)
+    setShowMenu(false)
+    router.push("/login")
+  }
+
   useEffect(() => {
     const token = localStorage.getItem("token")
 
@@ -47,13 +55,6 @@ export default function Header() {
     document.addEventListener("mousedown", handleClickOutside)
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
-
-  const handleLogout = () => {
-    localStorage.removeItem("token")
-    setUser(null)
-    setShowMenu(false)
-    router.push("/login")
-  }
 
   return (
     <header className="w-full bg-gray-100 py-4 px-6 shadow mb-6 relative">
@@ -77,14 +78,10 @@ export default function Header() {
             </div>
 
             {showMenu && (
-              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded border z-50">
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                >
-                  Cerrar sesión
-                </button>
-              </div>
+              <UserMenu 
+                user={user}
+                handleLogout={handleLogout} 
+              />
             )}
           </div>
         )}
