@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import User, { IUser } from "../models/User";
+import { authenticateToken, AuthRequest } from "../middleware/auth";
 
 dotenv.config();
 
@@ -70,5 +71,23 @@ router.post(
     }
   }
 );
+
+// GET /api/auth/me
+router.get("/me", authenticateToken, async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = (req as AuthRequest).user.userId;
+
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      res.status(404).json({ message: "Usuario no encontrado" });
+      return;
+    }
+
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

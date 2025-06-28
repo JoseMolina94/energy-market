@@ -1,5 +1,6 @@
 "use client";
 
+import EnergyOfferCard from "@/components/EnergyOfferCard";
 import useSWR from "swr";
 
 const fetcher = (url: string) =>
@@ -14,19 +15,16 @@ export default function OffersPage() {
   if (isLoading) return <p>Cargando ofertas...</p>;
   if (error) return <p>Error al cargar ofertas</p>;
 
+  console.log(data)
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Ofertas activas</h1>
-      <ul className="space-y-4">
-        {data?.map((offer: any) => (
-          <li key={offer._id} className="p-4 bg-white shadow rounded">
-            <p><strong>kWh:</strong> {offer.kWh}</p>
-            <p><strong>Precio:</strong> ${offer.pricePerKWh}/kWh</p>
-            <p><strong>Desde:</strong> {new Date(offer.availableFrom).toLocaleString()}</p>
-            <p><strong>Hasta:</strong> {new Date(offer.availableTo).toLocaleString()}</p>
-          </li>
+      <div className="flex gap-2">
+        {data?.map((offer: any, index: number) => (
+          <EnergyOfferCard offer={offer} key={index} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

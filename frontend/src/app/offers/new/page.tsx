@@ -30,7 +30,7 @@ export default function CreateOfferPage() {
       const decoded = jwtDecode<DecodedToken>(token);
       if (decoded.role !== "seller") {
         setError("Solo los vendedores pueden crear ofertas");
-        router.push("/offers"); // O cualquier otra página para compradores
+        router.push("/offers");
       }
     } catch (err) {
       console.error("Token inválido:", err);
