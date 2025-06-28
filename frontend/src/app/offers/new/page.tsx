@@ -1,52 +1,52 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { jwtDecode } from "jwt-decode"
 
 interface DecodedToken {
-  userId: string;
-  role: string;
-  exp: number;
+  userId: string
+  role: string
+  exp: number
 }
 
 export default function CreateOfferPage() {
-  const router = useRouter();
-  const [kWh, setKWh] = useState(100);
-  const [price, setPrice] = useState(0.2);
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [error, setError] = useState("");
+  const router = useRouter()
+  const [kWh, setKWh] = useState(100)
+  const [price, setPrice] = useState(0.2)
+  const [from, setFrom] = useState("")
+  const [to, setTo] = useState("")
+  const [error, setError] = useState("")
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
     if (!token) {
-      setError("Debes iniciar sesión");
-      router.push("/login");
-      return;
+      setError("Debes iniciar sesión")
+      router.push("/login")
+      return
     }
 
     try {
-      const decoded = jwtDecode<DecodedToken>(token);
+      const decoded = jwtDecode<DecodedToken>(token)
       if (decoded.role !== "seller") {
-        setError("Solo los vendedores pueden crear ofertas");
-        router.push("/offers");
+        setError("Solo los vendedores pueden crear ofertas")
+        router.push("/offers")
       }
     } catch (err) {
-      console.error("Token inválido:", err);
-      setError("Token inválido");
-      router.push("/login");
+      console.error("Token inválido:", err)
+      setError("Token inválido")
+      router.push("/login")
     }
-  }, []);
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError("")
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
     if (!token) {
-      setError("No autenticado");
-      return;
+      setError("No autenticado")
+      return
     }
 
     try {
@@ -62,18 +62,18 @@ export default function CreateOfferPage() {
           availableFrom: new Date(from).toISOString(),
           availableTo: new Date(to).toISOString(),
         }),
-      });
+      })
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Error al crear oferta");
+        const data = await res.json()
+        throw new Error(data.message || "Error al crear oferta")
       }
 
-      router.push("/offers");
+      router.push("/offers")
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message)
     }
-  };
+  }
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded shadow mt-8">
@@ -129,5 +129,5 @@ export default function CreateOfferPage() {
         </button>
       </form>
     </div>
-  );
+  )
 }

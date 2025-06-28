@@ -1,58 +1,94 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import UserAvatar from "../UserAvatar";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
+import { useEffect, useRef, useState } from "react"
+import { useRouter, usePathname } from "next/navigation"
+import UserAvatar from "../UserAvatar"
+import { User } from "@/types/User"
 
 export default function Header() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null)
+  const [showMenu, setShowMenu] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
+  const getUserLogged = (token: string | null) => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then(async (res) => {
-        if (!res.ok) throw new Error("Token inválido o expirado");
-        const data = await res.json();
-        setUser(data.user);
+        if (!res.ok) throw new Error("Token inválido o expirado")
+        const data = await res.json()
+        setUser(data.user)
       })
       .catch((err) => {
-        console.error("Error al cargar usuario:", err.message);
-        setUser(null); // Token inválido o expirado
-      });
-  }, []);
+        console.error("Error al cargar usuario:", err.message)
+        setUser(null)
+      })
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+
+    if (!token) return
+    if (!user) getUserLogged(token)
+
+  }, [pathname])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    setUser(null)
+    setShowMenu(false)
+    router.push("/login")
+  }
 
   return (
-    <header className="w-full bg-gray-100 py-4 px-6 shadow mb-6">
+    <header className="w-full bg-gray-100 py-4 px-6 shadow mb-6 relative">
       <div className="max-w-4xl mx-auto flex justify-between items-center">
         <h1 className="text-4xl font-bold">⚡ Energy Market</h1>
+
         {user && (
-          <div className="flex gap-2 items-center">
-            <p className="text-sm text-gray-700 text-right">
-              Bienvenid@, 
-              <strong className="capitalize">
-                {user.name}
-              </strong>
-              <br />
-              <span className="text-xs text-slate-500">
-                {user.email}
-              </span>
-            </p>
-            <UserAvatar classname='w-12 h-12 border border-slate-400 bg-slate-300' />
+          <div ref={menuRef} className="relative">
+            <div
+              className="flex gap-2 items-center cursor-pointer"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              <div className="text-sm text-gray-700 text-right">
+                <p>
+                  Bienvenid@, 
+                  <span className="font-medium capitalize"> {user.name} </span>
+                </p>
+                <span className="text-xs text-slate-500">{user.email}</span>
+              </div>
+              <UserAvatar classname="w-11 h-11 border border-slate-400 bg-slate-300" />
+            </div>
+
+            {showMenu && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded border z-50">
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                >
+                  Cerrar sesión
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
     </header>
-  );
+  )
 }
