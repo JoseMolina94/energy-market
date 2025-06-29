@@ -58,8 +58,8 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="w-full bg-gray-100 py-4 px-6 shadow mb-6 relative">
-      <div className="max-w-4xl mx-auto flex justify-between items-center">
+    <header className="w-full min-h-[96px] bg-gray-100 py-4 shadow mb-6 relative">
+      <div className="max-w-5xl mx-auto flex justify-between items-center">
         <h1 className="text-4xl font-bold">⚡ Energy Market</h1>
 
         {

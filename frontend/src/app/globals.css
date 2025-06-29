@@ -7,3 +7,17 @@
   padding: 0;
 }
 
+@layer utilities {
+  .animate-pulse-scale {
+    animation: pulseScale 0.8s ease-in-out infinite;
+  }
+
+  @keyframes pulseScale {
+    0%, 100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.5);
+    }
+  }
+}

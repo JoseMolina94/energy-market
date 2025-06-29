@@ -30,7 +30,7 @@ export default function UserMenu (props : UserMenuProps) {
     },
     {
       label: 'Historial de transacciones',
-      href: '/transactions-history'
+      href: '/transactions'
     }
   ]
 

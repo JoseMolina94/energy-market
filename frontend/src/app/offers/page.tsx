@@ -1,5 +1,7 @@
 "use client"
 
+import ErrorMessage from "@/components/Commons/ErrorMessage"
+import Loader from "@/components/Commons/loader"
 import EnergyOfferCard from "@/components/EnergyOfferCard"
 import useSWR from "swr"
 
@@ -20,14 +22,22 @@ export default function OffersPage() {
     }
   )
 
-  if (isLoading) return <p>Cargando ofertas...</p>
-  if (error) return <p>Error al cargar ofertas</p>
-
   console.log(data)
 
   return (
     <div className="space-y-4">
       <h1 className="text-3xl font-bold mb-4 border-b">Ofertas Activas</h1>
+
+      {
+        isLoading && 
+        <div className="pt-12">
+          <Loader size={96} />
+        </div>
+      }
+      {
+        error && <ErrorMessage message="Error al cargar las ofertas" />
+      }
+
       <div className="flex flex-wrap w-full gap-4">
         {data?.map((offer: any, index: number) => (
           <EnergyOfferCard 
