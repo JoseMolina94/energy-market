@@ -26,7 +26,7 @@ export default function OffersPage() {
   console.log(data)
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4">
       <h1 className="text-3xl font-bold mb-4 border-b">Ofertas Activas</h1>
       <div className="flex flex-wrap w-full gap-4">
         {data?.map((offer: any, index: number) => (
