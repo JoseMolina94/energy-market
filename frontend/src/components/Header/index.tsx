@@ -58,10 +58,12 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="w-full min-h-[96px] bg-gray-100 py-4 shadow mb-6 relative">
+    <header className="w-full bg-gray-100 py-4 px-2 md:px-0 shadow relative">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
-        <h1 className="text-4xl font-bold">⚡ Energy Market</h1>
-
+        <Link href={'/'}>
+          <h1 className="text-2xl md:text-4xl font-bold cursor-pointer shrink-0">⚡Energy Market</h1>
+        </Link>
+        
         {
           user ? (
             <div ref={menuRef} className="relative">
@@ -69,14 +71,14 @@ export default function Header() {
                 className="flex gap-2 items-center cursor-pointer"
                 onClick={() => setShowMenu(!showMenu)}
               >
-                <div className="text-sm text-gray-700 text-right">
+                <div className="text-sm hidden md:block text-gray-700 text-right">
                   <p>
                     Bienvenid@, 
                     <span className="font-medium capitalize"> {user.name} </span>
                   </p>
                   <span className="text-xs text-slate-500">{user.email}</span>
                 </div>
-                <UserAvatar classname="w-11 h-11 border border-slate-400 bg-slate-300" />
+                <UserAvatar />
               </div>
 
               {showMenu && (
@@ -89,9 +91,13 @@ export default function Header() {
           ) : (
             <Link href='/login'>
               <div 
-                className="cursor-pointer border px-3 py-1 rounded-full border-slate-400 bg-slate-300 hover:bg-slate-400 transition"
+                className="cursor-pointer hidden md:block border px-3 py-1 rounded-full border-slate-400 bg-slate-300 hover:bg-slate-400 transition"
               >
                 Iniciar Sesión
+              </div>
+
+              <div className="cursor-pointer text-xs md:hidden block border px-3 py-1 rounded-full border-slate-400 bg-slate-300 hover:bg-slate-400 transition">
+                Sesión
               </div>
             </Link>
           )

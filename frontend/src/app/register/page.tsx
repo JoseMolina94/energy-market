@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function RegisterPage() {
         return;
       }
 
-      // Registro exitoso → redirige al login
+      alert("¡Registro realizado con éxito!")
       router.push("/login");
     } catch (err) {
       console.error(err);
@@ -51,7 +52,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-16 bg-white p-8 shadow-lg rounded-xl">
+    <div className="max-w-md mx-auto mt-16 bg-white p-8 md:shadow rounded-xl">
       <h1 className="text-2xl font-bold mb-6 text-center">Registro</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -106,6 +107,14 @@ export default function RegisterPage() {
 
         {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
       </form>
+
+      <div className="mt-8 w-full text-center" >
+        <Link href='/login'>
+          <span className="underline text-blue-500 cursor-pointer text-sm" >
+            ¿Ya tienes cuenta?, inicia sesión aquí
+          </span>
+        </Link>
+      </div>
     </div>
   );
 }

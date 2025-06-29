@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -35,9 +36,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <div className="max-w-md mx-auto mt-16 bg-white p-6 rounded md:shadow">
+
       <h2 className="text-xl font-bold mb-4">Iniciar sesión</h2>
-      {error && <p className="text-red-600 mb-2">{error}</p>}
+
+      {
+        error && 
+          <p className="text-red-600 mb-2">{error}</p>
+      }
+      
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
           <label className="block font-semibold">Correo electrónico</label>
@@ -68,6 +75,14 @@ export default function LoginPage() {
           Entrar
         </button>
       </form>
+
+      <div className="mt-8 w-full text-center" >
+        <Link href='/register'>
+          <span className="underline text-blue-500 cursor-pointer text-sm" >
+            ¿No tienes cuenta?, puedes crear una aquí
+          </span>
+        </Link>
+      </div>
     </div>
   )
 }
