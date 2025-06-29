@@ -21,7 +21,7 @@ export default function UserMenu (props : UserMenuProps) {
   const menu: TMenuItem[] = [
     {
       label: 'Ofertas',
-      href: '/offers',
+      href: '/',
     },
     {
       label: 'Crear nueva oferta',

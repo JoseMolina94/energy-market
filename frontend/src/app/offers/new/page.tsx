@@ -50,7 +50,7 @@ export default function CreateOfferPage() {
         throw new Error(data.message || "Error al crear oferta")
       }
 
-      router.push("/offers")
+      router.push("/")
     } catch (err: any) {
       setError(err.message)
     }
@@ -60,7 +60,7 @@ export default function CreateOfferPage() {
 
   const cancelCancel = () => setShowModal(false)
 
-  const proceedCancel = () => router.push("/offers")
+  const proceedCancel = () => router.push("/")
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -74,7 +74,7 @@ export default function CreateOfferPage() {
       const decoded = jwtDecode<DecodedToken>(token)
       if (decoded.role !== "seller") {
         setError("Solo los vendedores pueden crear ofertas")
-        router.push("/offers")
+        router.push("/")
       }
     } catch (err) {
       console.error("Token inválido:", err)

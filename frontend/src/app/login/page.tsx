@@ -29,7 +29,7 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token)
       localStorage.setItem("user", JSON.stringify(data.user))
 
-      router.push("/offers")
+      router.push("/")
     } catch (err: any) {
       setError(err.message)
     }

@@ -69,7 +69,7 @@ export default function EnergyOfferCard({ offer }: EnergyOfferCardProps) {
   }
 
   return (
-    <div className="flex flex-col items-center p-4 bg-white shadow rounded space-y-2">
+    <div className="flex flex-col items-center w-54 max-w-54 p-4 bg-white shadow rounded space-y-2">
       <div className="text-center block border rounded-md w-fit p-2">
         <span className="text-6xl">⚡</span> 
         <p className="font-semibold text-lg">{offer.kWh} kWh</p>
