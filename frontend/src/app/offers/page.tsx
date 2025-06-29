@@ -10,7 +10,15 @@ const fetcher = (url: string) =>
   })
 
 export default function OffersPage() {
-  const { data, error, isLoading } = useSWR("http://localhost:4000/api/offers", fetcher)
+  const { data, error, isLoading } = useSWR(
+    `${process.env.NEXT_PUBLIC_BACKEND_API}/offers`, 
+    fetcher,
+    {
+      refreshInterval: 60000,
+      revalidateOnFocus: true,
+      revalidateIfStale: true
+    }
+  )
 
   if (isLoading) return <p>Cargando ofertas...</p>
   if (error) return <p>Error al cargar ofertas</p>
@@ -20,9 +28,12 @@ export default function OffersPage() {
   return (
     <div className="p-4 space-y-4">
       <h1 className="text-3xl font-bold mb-4 border-b">Ofertas Activas</h1>
-      <div className="flex flex-wrap w-full justify-between gap-4">
+      <div className="flex flex-wrap w-full gap-4">
         {data?.map((offer: any, index: number) => (
-          <EnergyOfferCard offer={offer} key={index} />
+          <EnergyOfferCard 
+            offer={offer} 
+            key={index} 
+          />
         ))}
       </div>
     </div>

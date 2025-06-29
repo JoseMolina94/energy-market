@@ -157,6 +157,7 @@ export default function CreateOfferPage() {
 
       <Modal
         isOpen={showModal}
+        setIsOpen={setShowModal}
         message="¿Seguro que quieres cancelar?"
         confirm={proceedCancel}
         cancel={cancelCancel}
