@@ -84,7 +84,7 @@ export default function CreateOfferPage() {
   }, [])
 
   return (
-    <div>
+    <div className="px-4 py-4 md:px-8">
       <h2 className="text-3xl font-bold mb-4 border-b">Crear nueva oferta</h2>
 
       <div className="max-w-md mx-auto bg-white p-4 rounded">

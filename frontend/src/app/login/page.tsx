@@ -38,7 +38,7 @@ export default function LoginPage() {
   return (
     <div className="max-w-md mx-auto mt-16 bg-white p-6 rounded md:shadow">
 
-      <h2 className="text-xl font-bold mb-4">Iniciar sesión</h2>
+      <h2 className="text-center text-2xl font-bold mb-4">Iniciar sesión</h2>
 
       {
         error && 

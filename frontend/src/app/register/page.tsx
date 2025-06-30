@@ -60,7 +60,7 @@ export default function RegisterPage() {
           type="text"
           name="name"
           placeholder="Nombre"
-          className="w-full p-3 border rounded"
+          className="w-full border px-2 py-1 rounded"
           value={formData.name}
           onChange={handleChange}
           required
@@ -70,7 +70,7 @@ export default function RegisterPage() {
           type="email"
           name="email"
           placeholder="Correo electrónico"
-          className="w-full p-3 border rounded"
+          className="w-full border px-2 py-1 rounded"
           value={formData.email}
           onChange={handleChange}
           required
@@ -80,7 +80,7 @@ export default function RegisterPage() {
           type="password"
           name="password"
           placeholder="Contraseña"
-          className="w-full p-3 border rounded"
+          className="w-full border px-2 py-1 rounded"
           value={formData.password}
           onChange={handleChange}
           required
@@ -88,7 +88,7 @@ export default function RegisterPage() {
 
         <select
           name="role"
-          className="w-full p-3 border rounded"
+          className="w-full border px-2 py-1 rounded"
           value={formData.role}
           onChange={handleChange}
           required
@@ -100,7 +100,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
         >
           {loading ? "Registrando..." : "Registrarse"}
         </button>

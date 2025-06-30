@@ -56,10 +56,18 @@ export default function TransactionsPage() {
   const transactions = data as Transaction[] || []
 
   return (
-    <div>
+    <div className="px-4 py-4 md:px-8">
       <h2 className="text-2xl font-bold mb-4 border-b">
-        Historial de transacciones: ({role === "seller" ? "Tus ventas realizadas" : "Tus compras"})
+        Historial de transacciones: 
       </h2>
+
+      <h3 className="text-sm text-center md:text-left">
+        {
+          role === "seller" 
+          ? "Como vendedor aquí puedes ver tus ventas realizadas." 
+          : "Como comprador aquí puedes ver tus compras realizadas."
+        }
+      </h3>
 
       <div className="p-4 max-w-3xl mx-auto">
 
