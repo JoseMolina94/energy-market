@@ -53,6 +53,20 @@ npm run dev
 - Puerto por defecto: http://localhost:3000
 - Para este proyecto existe un archivo **.env** (esta por facilidad del proyecto de prueba, pero en producción este archivo no estaría).
 
+### Usuarios de prueba
+
+Si deseas puedes registrar otros usuarios, pero en caso de que no puedes usar los usuarios de prueba listados a continuación:
+
+Vendedor:
+- dbtest@mail.com
+
+-Compradores:
+- kompelec@mail.com
+- fabi.albaniles@mail.com
+- trabajapledanos@hotmail.om
+
+Todos los usuarios de prueba usan como contraseña **123456**
+
 ## Justificación de la arquitectura
 La arquitectura de este proyecto fue diseñada con un enfoque moderno, escalable y de fácil mantenimiento, aplicando principios de separación de responsabilidades entre frontend y backend, y utilizando tecnologías ampliamente adoptadas en la industria.
 
