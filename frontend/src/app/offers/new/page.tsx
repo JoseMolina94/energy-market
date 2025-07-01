@@ -18,12 +18,10 @@ export default function CreateOfferPage() {
   const [from, setFrom] = useState("")
   const [to, setTo] = useState("")
   const [error, setError] = useState("")
-  const [showModal, setShowModal] = useState(false)
+  const [showCancelModal, setShowCancelModal] = useState(false)
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-
+  const createOffer = async () => {
     const token = localStorage.getItem("token")
     if (!token) {
       setError("No autenticado")
@@ -56,11 +54,12 @@ export default function CreateOfferPage() {
     }
   }
 
-  const confirmCancel = () => setShowModal(true)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
 
-  const cancelCancel = () => setShowModal(false)
-
-  const proceedCancel = () => router.push("/")
+    setShowConfirmModal(true)
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -140,7 +139,7 @@ export default function CreateOfferPage() {
           <div className="mt-8 flex gap-4">
             <button
               type="button"
-              onClick={confirmCancel}
+              onClick={() => setShowCancelModal(true)}
               className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
             >
               Cancelar
@@ -156,13 +155,43 @@ export default function CreateOfferPage() {
       </div>
 
       <Modal
-        isOpen={showModal}
-        setIsOpen={setShowModal}
+        isOpen={showCancelModal}
+        setIsOpen={setShowCancelModal}
         message="¿Seguro que quieres cancelar?"
-        confirm={proceedCancel}
-        cancel={cancelCancel}
+        confirm={() => router.push("/")}
         confirmButtonText="Si, cancelar"
         cancelButtonText="No"
+      />
+
+      <Modal
+        isOpen={showConfirmModal}
+        setIsOpen={setShowConfirmModal}
+        message={
+          <div className="mb-6" >
+            <h3>¿Seguro que quieres crear esta oferta?</h3>
+            <p>Al crearla no podras editarla.</p>
+            <div className="text-sm flex flex-col gap-4">
+              <div className="text-xl font-semibold" >{kWh} kWh</div>
+              <div className="text-lg">
+                <strong>Costo: </strong> 
+                $ {price}/kWh
+              </div>
+              <div>
+                <div>
+                  <strong>Desde: </strong>
+                  {new Date(from).toLocaleString()}
+                </div>
+                <div>
+                  <strong>Hasta: </strong>
+                  {new Date(to).toLocaleString()}
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        confirm={createOffer}
+        confirmButtonText="Confirmar creación"
+        cancelButtonText="Cancelar"
       />
     </div>
   )

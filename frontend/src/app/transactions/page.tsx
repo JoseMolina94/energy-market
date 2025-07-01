@@ -58,7 +58,7 @@ export default function TransactionsPage() {
   return (
     <div className="px-4 py-4 md:px-8">
       <h2 className="text-2xl font-bold mb-4 border-b">
-        Historial de transacciones: 
+        Transacciones: 
       </h2>
 
       <h3 className="text-sm text-center md:text-left">

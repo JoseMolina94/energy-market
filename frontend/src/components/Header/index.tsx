@@ -44,6 +44,8 @@ export default function Header() {
     if (!token) return
     if (!user) getUserLogged(token)
 
+    setShowMenu(false)
+
   }, [pathname])
 
   useEffect(() => {
@@ -58,8 +60,8 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="w-full bg-gray-100 py-4 px-2 md:px-0 shadow relative">
-      <div className="max-w-5xl mx-auto flex justify-between items-center">
+    <header className="w-full bg-gray-100 py-4 px-2 md:px-6 shadow relative">
+      <div className="flex justify-between items-center">
         <Link href={'/'}>
           <h1 className="text-2xl md:text-4xl font-bold cursor-pointer shrink-0">⚡Energy Market</h1>
         </Link>
