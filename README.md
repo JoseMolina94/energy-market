@@ -2,7 +2,7 @@
 
 Una aplicación web de compraventa de energía entre usuarios. Los vendedores pueden crear ofertas de energía (kWh) y los compradores pueden adquirirlas según disponibilidad. Construido con un stack moderno: Node.js, Express, MongoDB, Next.js, Tailwind CSS y SWR.
 
-## 📦 Tecnologías usadas
+## Tecnologías usadas
 
 ### Backend
 
@@ -22,7 +22,7 @@ Una aplicación web de compraventa de energía entre usuarios. Los vendedores pu
 - JWT (manejo de autenticación)
 - jwt-decode
 
-## 🚀 Cómo iniciar el proyecto
+## Cómo iniciar el proyecto
 
 ### Clonar repositorio
 
